@@ -1,0 +1,36 @@
+.card{
+    height: 400px; 
+    width: 300px; 
+    // box-shadow: 0 10px 30px 0px rgba(0,0,0,.13);
+    border-radius: 3px;
+    margin: auto;
+    position: relative;
+    border: 1px solid #eee;
+    img {
+        height:200px; 
+        width: auto; 
+        margin: 0 auto; 
+        display: block; 
+        z-index: 0;
+        transition: .2s;
+    }
+    h1 {
+        font-family: 'Staatliches', sans-serif;
+        font-size: 54px;
+        margin: 0;
+        padding: 0 .25em;
+        display: block;
+        color: #111;
+        transition: .2s;
+        position: absolute;
+        bottom: 0;
+    }
+    &:hover{
+        h1{
+            transform: translateX(-20px)translateY(-40px)scale(1.5);
+        }
+        img{
+            transform: translateX(50px)scale(1.2);
+        }
+    }
+}

@@ -1,0 +1,15 @@
+$yellow: #ffda61;
+
+*{
+	box-sizing: border-box;
+}
+
+body{
+	background: $yellow;
+}
+
+@import "./parallax";
+@import "./marquee";
+@import "./navbar";
+@import "./carousel";
+

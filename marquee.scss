@@ -1,0 +1,84 @@
+$offset: 50px;
+$stroke: white;
+
+.marquee {
+    .outer{
+        display: flex;
+        height: 100px;
+        align-items: center;
+        position: relative;
+    }
+    
+    * {
+        font-family: 'Staatliches', sans-serif
+    }
+    
+    .container{
+        height: 100%;
+        perspective: 700px;
+        position: relative;
+        perspective-origin: 50% 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 250px;
+        margin-left: 40px;
+    }
+    
+    .item{
+        position: absolute;
+        animation-duration: 2.5s;
+        animation-fill-mode: backwards;
+        animation-timing-function: ease;
+        z-index: 100;
+        backface-visibility: hidden;
+        font-size: 50px;
+        white-space: nowrap;
+        visibility: hidden;
+        border-bottom: 2px solid $stroke;
+        border-top: 2px solid $stroke;
+        transform-style: preserve-3d;
+    }
+    
+    .animate{
+        visibility: visible;
+        animation-name: animate;
+    }
+    
+    .inner{
+        transform: translateZ(-$offset);
+        transform-style: preserve-3d;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    @keyframes animate{
+        0%{
+            transform: rotateX(-90deg)translateZ($offset);
+        }
+        6%{transform: rotateX(10deg)translateZ($offset);}
+        12%{transform: rotateX(-5deg)translateZ($offset);}
+        18%{transform: rotateX(1.5deg)translateZ($offset);}
+        24%{transform: rotateX(0deg)translateZ($offset);}
+    
+        
+        82%{transform: rotateX(0deg)translateZ($offset);}
+        88%{transform: rotateX(5deg)translateZ($offset);}
+        94%{transform: rotateX(-10deg)translateZ($offset);}
+        100%{
+            transform: rotateX(90deg)translateZ($offset);
+        }
+    }
+    
+    .static{
+        font-size: 28px;
+    }
+    
+    *{
+        color: $stroke;
+        text-shadow: 0 10px 15px rgba(0,0,0,.1)
+    }
+}

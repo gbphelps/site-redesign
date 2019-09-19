@@ -1,0 +1,64 @@
+html,body{
+    margin: 0;
+    height: 0;
+}
+
+#layer-3{
+    position: relative;
+}
+
+.content{
+    height: 200vh;
+    width: 100%;
+    background: white;
+}
+
+#skyline{
+    overflow: hidden;
+}
+
+
+// #layer-1{
+//     fill: scale-color($color: $primary-light, $lightness: 100%);
+// }
+// #layer-2{
+//     fill: scale-color($color: $primary-light, $lightness: 80%);
+// }
+// #layer-3{
+//     fill: scale-color($color: $primary-light, $lightness: 60%);
+// }
+// #layer-4{
+//     fill: scale-color($color: $primary-light, $lightness: 40%);
+// }
+// #layer-5{
+//     fill: scale-color($color: $primary-light, $lightness: 20%);
+// }
+
+
+[id*="layer-"]{
+    // filter: url("#hello");
+    fill: white;
+}
+
+.sun{
+    height: 300px; 
+    width: 300px; 
+    position: fixed; 
+    right: 10%; 
+    top: 10%; 
+    z-index: -1;
+
+    &, div {
+        background: rgba(255, 153, 0, .3); 
+        border-radius: 50%; 
+        box-shadow: inset 0 0 10px 0 rgba(0,0,0,.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div{
+        width: 80%; 
+        height: 80%; 
+    }
+}
