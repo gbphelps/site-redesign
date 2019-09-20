@@ -13,6 +13,13 @@ let z2=150;
 const a = .01;
 let vel = 0;
 
+const vb = {
+    xMin: 30,
+    yMin: -200,
+    width: 480,
+    height: 350
+}
+
 function setup(){
     const domEl = document.getElementById('skyline');
     x = 0;
@@ -20,6 +27,20 @@ function setup(){
     //NOTE turn these on for left-to-right parallax mouse tracking
     // animation = requestAnimationFrame(move);
     // domEl.addEventListener('mousemove',updateMouse);
+
+    const svg = document.getElementsByTagName('svg')[0];
+    svg.setAttribute('viewBox',`${vb.xMin} ${vb.yMin} ${vb.width} ${vb.height}`);
+
+    const container = document.getElementById('svg-container');
+    Object.assign(container.style,{
+        "height": "130%",
+        "min-height": `calc(100vw / ${vb.width} * ${vb.height})`,
+        "align-self": "flex-end",
+        "z-index": 1,
+        "position": "relative",
+        "width": "100%"
+    });
+
 
     sky = { domEl, x } //TODO requires update;
     layers = [5,4,3,2,1].map(num => {
@@ -45,15 +66,24 @@ function scroll(e){
     layers.forEach((layer,i) => {
         const k = (layers.length-i-1)/(layers.length-1);
         layer.t.y = pct * maxOffsetY * k;
-        layer.domEl.style.transform = `
-            translateX(${layer.t.x}%)
-            translateY(${layer.t.y}%)
-            translateY(100%)
-            translateX(50%)
+        layer.domEl.setAttribute('transform',`
+            translate(${layer.t.x})
+            translate(0 ${layer.t.y})
+            translate(0 ${vb.height})
+            translate(${vb.width/2})
             scale(${layer.t.s})
-            translateX(-50%)
-            translateY(-100%)
-        `;
+            translate(${-vb.width/2})
+            translate(0 ${-vb.height})
+        `)
+        // layer.domEl.style.transform = `
+        //     translateX(${layer.t.x}%)
+        //     translateY(${layer.t.y}%)
+        //     translateY(100%)
+        //     translateX(50%)
+        //     scale(${layer.t.s})
+        //     translateX(-50%)
+        //     translateY(-100%)
+        // `;
     })
 
     // document.body.style.background = `rgb(${2.55*(100-pct) + 2*pct},${2.55*(100-pct) + 1*pct},${2.55*(100-pct) + .5*pct})`
@@ -70,15 +100,24 @@ function move(){
     const pct = sky.x/window.innerWidth*2 * 100;
     layers.forEach((layer,i) => {
         layer.t.x = pct * maxOffset * (i/(layers.length-1));
-        layer.domEl.style.transform = `
-            translateX(${layer.t.x}%)
-            translateY(${layer.t.y}%)
-            translateY(100%)
-            translateX(50%)
+        layer.domEl.setAttribute('transform',`
+            translate(${layer.t.x})
+            translate(0 ${layer.t.y})
+            translate(0 ${150})
+            translate(${480/2})
             scale(${layer.t.s})
-            translateX(-50%)
-            translateY(-100%)
-        `;
+            translate(${-480/2})
+            translate(0 ${-150})
+        `)
+        // layer.domEl.style.transform = `
+        //     translateX(${layer.t.x}%)
+        //     translateY(${layer.t.y}%)
+        //     translateY(100%)
+        //     translateX(50%)
+        //     scale(${layer.t.s})
+        //     translateX(-50%)
+        //     translateY(-100%)
+        // `;
     })
 }
 
@@ -88,7 +127,7 @@ let z
 function zoom(){
     z = requestAnimationFrame(zoom)
     layers.forEach((layer,i) => {
-        const z = i/(layers.length-1)*20;
+        const z = i/(layers.length-1)*40;
         const scaleInit = p/(p - z);
         const scaleNew = (p-z2)/(p-z-z2);
         layer.t.s = scaleNew / scaleInit;
@@ -96,15 +135,26 @@ function zoom(){
             layer.t.s = 1;
             cancelAnimationFrame(z)
         }
-        layer.domEl.style.transform = `
-            translateX(${layer.t.x}%)
-            translateY(${layer.t.y}%)
-            translateY(100%)
-            translateX(50%)
+
+        //viewBox="30 0 480 150"
+        layer.domEl.setAttribute('transform',`
+            translate(${layer.t.x})
+            translate(0 ${layer.t.y})
+            translate(0 ${150})
+            translate(${480/2})
             scale(${layer.t.s})
-            translateX(-50%)
-            translateY(-100%)
-        `
+            translate(${-480/2})
+            translate(0 ${-150})
+        `)
+        // layer.domEl.style.transform = `
+        //     translateX(${layer.t.x}%)
+        //     translateY(${layer.t.y}%)
+        //     translateY(100%)
+        //     translateX(50%)
+        //     scale(${layer.t.s})
+        //     translateX(-50%)
+        //     translateY(-100%)
+        // `
     })
     vel += a;
     z2 -= vel;
