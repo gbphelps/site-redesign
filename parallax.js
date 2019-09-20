@@ -62,7 +62,7 @@ function move(){
     const pct = sky.x/window.innerWidth*2 * 100;
     layers.forEach((layer,i) => {
         layer.t.x = pct * maxOffset * (i/(layers.length-1));
-        layer.domEl.style.transform = `translateX(${layer.t.x}%)translateY(${layer.t.y}%)scale(${layer.t.s})`;
+        layer.domEl.style.transform = `scale(${layer.t.s})translateX(${layer.t.x}%)translateY(${layer.t.y}%)`;
     })
 }
 
@@ -70,12 +70,15 @@ function move(){
 //NOTE: ZOOM
 function zoom(){
     layers.forEach((layer,i) => {
-        const z = i/(layers.length-1)*20;
+        const z = (i+1)/(layers.length+2)*50;
         const scaleInit = p/(p - z);
         const scaleNew = (p-z2)/(p-z-z2);
         layer.t.s = scaleNew / scaleInit;
-        if (layer.t.s < 1) return;
-        layer.domEl.style.transform = `translateX(${layer.t.x}%)translateY(${layer.t.y}%)scale(${layer.t.s})`
+        if (layer.t.s < 1){
+            layer.domEl.style.transform = `translateX(${layer.t.x}%)translateY(${layer.t.y}%)`;
+            return;
+        }
+        layer.domEl.style.transform = `scale(${layer.t.s})translateX(${layer.t.x}%)translateY(${layer.t.y}%)`
     })
     vel += a;
     z2 -= vel;

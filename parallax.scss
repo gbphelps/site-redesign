@@ -38,7 +38,7 @@ html,body{
 [id*="layer-"]{
     // filter: url("#hello");
     fill: white;
-    transform-origin: 25vw 100%;
+    transform-origin: 50% 100%;
 }
 
 .sun{
@@ -63,3 +63,7 @@ html,body{
         height: 80%; 
     }
 }
+
+// *{
+//     outline: 1px solid red
+// }
