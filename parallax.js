@@ -45,7 +45,15 @@ function scroll(e){
     layers.forEach((layer,i) => {
         const k = (layers.length-i-1)/(layers.length-1);
         layer.t.y = pct * maxOffsetY * k;
-        layer.domEl.style.transform = `translateX(${layer.t.x}%)translateY(${layer.t.y}%)scale(${layer.t.s})`;
+        layer.domEl.style.transform = `
+            translateX(${layer.t.x}%)
+            translateY(${layer.t.y}%)
+            translateY(100%)
+            translateX(50%)
+            scale(${layer.t.s})
+            translateX(-50%)
+            translateY(-100%)
+        `;
     })
 
     // document.body.style.background = `rgb(${2.55*(100-pct) + 2*pct},${2.55*(100-pct) + 1*pct},${2.55*(100-pct) + .5*pct})`
@@ -62,22 +70,42 @@ function move(){
     const pct = sky.x/window.innerWidth*2 * 100;
     layers.forEach((layer,i) => {
         layer.t.x = pct * maxOffset * (i/(layers.length-1));
-        layer.domEl.style.transform = `translateX(${layer.t.x}%)translateY(${layer.t.y}%)scale(${layer.t.s})`;
+        layer.domEl.style.transform = `
+            translateX(${layer.t.x}%)
+            translateY(${layer.t.y}%)
+            translateY(100%)
+            translateX(50%)
+            scale(${layer.t.s})
+            translateX(-50%)
+            translateY(-100%)
+        `;
     })
 }
 
 /////////////////////
 //NOTE: ZOOM
+let z
 function zoom(){
+    z = requestAnimationFrame(zoom)
     layers.forEach((layer,i) => {
         const z = i/(layers.length-1)*20;
         const scaleInit = p/(p - z);
         const scaleNew = (p-z2)/(p-z-z2);
         layer.t.s = scaleNew / scaleInit;
-        if (layer.t.s < 1) return;
-        layer.domEl.style.transform = `translateX(${layer.t.x}%)translateY(${layer.t.y}%)scale(${layer.t.s})`
+        if (layer.t.s < 1){
+            layer.t.s = 1;
+            cancelAnimationFrame(z)
+        }
+        layer.domEl.style.transform = `
+            translateX(${layer.t.x}%)
+            translateY(${layer.t.y}%)
+            translateY(100%)
+            translateX(50%)
+            scale(${layer.t.s})
+            translateX(-50%)
+            translateY(-100%)
+        `
     })
     vel += a;
     z2 -= vel;
-    requestAnimationFrame(zoom)
 }
