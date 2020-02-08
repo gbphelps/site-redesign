@@ -1,11 +1,11 @@
-$yellow: #ffda61;
+$blue: #7ec2ff;
 
 *{
 	box-sizing: border-box;
 }
 
 body{
-	background: $yellow;
+	background: $blue;
 }
 
 @import "./parallax";

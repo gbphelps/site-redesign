@@ -5,8 +5,8 @@ let x = 0;
 let animation;
 let svg;
 let clientToSVG;
-const maxOffset = .05;
-const maxOffsetY = .3;
+const maxOffset = .1;
+const maxOffsetY = .2;
 const speed = .03; //less than 1;
 let midpoint;
 
@@ -25,11 +25,6 @@ const vb = {
 
 function resize(){
     const box = svg.getBoundingClientRect();
-    console.log({
-        boxwidth: box.width, 
-        windowidth: window.innerWidth,
-        viewboxwidth: vb.width
-    })
     clientToSVG = {
         x: vb.width / box.width,
         y: vb.height / box.height
@@ -46,10 +41,10 @@ function setup(){
 
     window.addEventListener('resize', resize);
     //NOTE turn these on for left-to-right parallax mouse tracking
-    // animation = requestAnimationFrame(move);
-    // domEl.addEventListener('mousemove',updateMouse);
+    animation = requestAnimationFrame(move);
+    domEl.addEventListener('mousemove',updateMouse);
 
-    svg = document.getElementsByTagName('svg')[0];
+    svg = document.getElementById('parallax');
     svg.setAttribute('viewBox',`${vb.xMin} ${vb.yMin} ${vb.width} ${vb.height}`);
 
     const container = document.getElementById('svg-container');
@@ -119,11 +114,11 @@ function move(){
         layer.domEl.setAttribute('transform',`
             translate(${layer.t.x})
             translate(0 ${layer.t.y})
-            translate(0 ${150})
+            translate(0 ${vb.yMin + vb.height})
             translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
             scale(${layer.t.s})
             translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-150})
+            translate(0 ${-(vb.yMin + vb.height)})
         `)
         // layer.domEl.style.transform = `
         //     translateX(${layer.t.x}%)
@@ -141,23 +136,22 @@ function move(){
 function zoom(){
     layers.forEach((layer,i) => {
         const z = (i+2)/(layers.length+1)*40;
-        const scaleInit = p/(p - z);
-        const scaleNew = (p-z2)/(p-z-z2);
+        const scaleInit = p/(p - z); //this is the scale that will eventually be reached, when z2 = 0.
+        const scaleNew = (p-z2)/(p-z2-z); // this is the current scale, based the time-dependent distance z2.
         layer.t.s = scaleNew / scaleInit;
         if (layer.t.s < 1){
             layer.t.s = 1;
             cancelAnimationFrame(z)
         }
 
-        //viewBox="30 0 480 150"
         layer.domEl.setAttribute('transform',`
             translate(${layer.t.x})
             translate(0 ${layer.t.y})
-            translate(0 ${150})
+            translate(0 ${vb.yMin + vb.height})
             translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
             scale(${layer.t.s})
             translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-150})
+            translate(0 ${-(vb.yMin + vb.height)})
         `)
 
         // layer.domEl.style.transform = `
@@ -171,8 +165,8 @@ function zoom(){
         // `
     })
     z = requestAnimationFrame(zoom);
-    zoom.delay++;
-    if (zoom.delay < 100) return; 
+    // zoom.delay++;
+    // if (zoom.delay < 100) return; 
 
     layers.forEach((layer,i) => {
         const z = (i+2)/(layers.length+1)*40;
@@ -192,8 +186,9 @@ function zoom(){
             translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
             scale(${layer.t.s})
             translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-150})
+            translate(0 ${-150}) 
         `)
+
 
         // layer.domEl.style.transform = `
         //     translateX(${layer.t.x}%)

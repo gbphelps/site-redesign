@@ -6,11 +6,9 @@ nav{
     height: 70px;
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    color: black;
-    font-family: 'Staatliches', sans-serif;
-    visibility: hidden;
-    opacity: 0;
+    padding: 20px 20px;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     &.detached{
         background: white;
@@ -18,11 +16,19 @@ nav{
         box-shadow: 0 5px 20px rgba(0,0,0,.05);
         visibility: visible;
         opacity: 1;
+        svg { fill: $blue }
     }
    
     &.retracted{
         transform: translateY(-100%);
         box-shadow: none;
+    }
+
+    svg {
+        height: 100%;
+        width: auto;
+        margin-right: 20px;
+        fill: #0f0f6f;
     }
 
 }
