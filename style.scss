@@ -1,11 +1,19 @@
-$yellow: #ffda61;
+$light-blue: #7ec2ff;
+$navy: rgb(29, 35, 77);
+$gray: rgb(83, 88, 119);
+$light-gray: #d5d7e2;
 
 *{
 	box-sizing: border-box;
 }
 
 body{
-	background: $yellow;
+	background: white;
+}
+
+.full-width {
+	width: 100%;
+	max-width: 1100px;
 }
 
 @import "./parallax";

@@ -10,7 +10,7 @@ $stroke: white;
     }
     
     * {
-        font-family: 'Staatliches', sans-serif
+        font-family: "Open Sans", sans-serif;
     }
     
     .container{
@@ -38,6 +38,8 @@ $stroke: white;
         border-bottom: 2px solid $stroke;
         border-top: 2px solid $stroke;
         transform-style: preserve-3d;
+        text-transform: uppercase;
+        font-weight: 900;
     }
     
     .animate{
@@ -74,7 +76,7 @@ $stroke: white;
     }
     
     .static{
-        font-size: 28px;
+        font-size: 24px;
     }
     
     *{

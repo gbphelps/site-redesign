@@ -8,17 +8,24 @@ document.addEventListener('DOMContentLoaded',()=>{
 window.addEventListener('scroll', () => {
     const bottom = s.getBoundingClientRect().bottom;
 
-    if (bottom < 0){
-        navbar.classList.add('detached')
+    // if (bottom < 0){
+    // navbar.classList.add('detached')
+    // } else {
+    //     navbar.classList.remove('detached')
+    // }
+
+    if (window.scrollY > 0) {
+        navbar.classList.add('detached');
     } else {
-        navbar.classList.remove('detached')
+        navbar.classList.remove('detached');
     }
 
-    if ( bottom > -400){
+    if ( bottom > -200){
         y = window.scrollY;
         scrolledUp = window.scrollY < y;
         return;
     };
+
     if (window.scrollY < y && !scrolledUp){
         navbar.classList.remove('retracted')
     } else if (window.scrollY > y && !scrolledUp) {
