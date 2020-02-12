@@ -21,7 +21,9 @@ nav{
                 fill: $navy;
             } 
         }
-        
+        .divider {
+            border-color: rgba(15, 15, 111, .3);
+        }
     }
    
     &.retracted{
@@ -35,15 +37,35 @@ nav{
         height: 30px;
         width: auto;
         margin-right: 20px;
-        fill: $navy;
-        &:hover { fill: white }
+        fill: $light-blue-shadow;
+        animation-name: bounce-in;
+        animation-duration: .8s;
+        animation-fill-mode: both;
+        &:hover { 
+            fill: white;
+            // transform: scale(1.15);
+        }
+    }
+
+    @for $i from 1 through 6 {
+        svg:nth-child(#{$i}){
+            animation-delay: #{($i - 1)*.08}s;
+        }
     }
 
     .divider{
         height: 32px;
         width: 1px;
         margin-right: 20px;
-        border-left: 1px solid rgba(15, 15, 111, .3);
+        border-left: 1px solid $light-blue-shadow;
     }
 
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0) }
+    20% { transform: scale(1.4) }
+    40% { transform: scale(.8) }
+    60% { transform: scale(1.1) }
+    80% { transform: scale(.95) }
 }
