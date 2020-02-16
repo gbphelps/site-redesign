@@ -3,9 +3,9 @@ html,body{
     height: 0;
 }
 
-#layer-3{
-    position: relative;
-}
+// #layer-3{
+//     position: relative;
+// }
 
 .content{
     height: 200vh;
@@ -18,14 +18,28 @@ html,body{
 }
 
 
-[id*="layer-"]{
-    // filter: url("#hello");
-    fill: white;
-}
+// [id*="layer-"]{
+//     // filter: url("#hello");
+//     fill: white;
+// }
 
 @for $i from 0 through 4 {
-    #layer-#{($i + 1)}{
+    .layer-#{($i + 1)}{
         fill: scale-color($color: $light-blue, $lightness: 100 - $i * 15%  );
+    }
+}
+
+#cloud-container {
+    width: 100%;
+    align-self: flex-start;
+    display: flex;
+    position: absolute;
+    flex-shrink: 0;
+    svg {
+        flex-shrink: 0;
+        width: 100%;
+        height: auto;
+        display: block;
     }
 }
 

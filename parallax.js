@@ -63,8 +63,8 @@ function setup(){
     resize();
 
     sky = { domEl, x } //TODO requires update;
-    layers = [5,4,3,2,1].map(num => {
-        const domEl = document.getElementById(`layer-${num}`);
+    layers = [10,9,8,7,6,5,4,3,2,1].map(num => {
+        const domEl = Array.from(document.getElementsByClassName(`layer-${num}`));
         const t = {x: 0, y: 0, s: 1}
         return { domEl, t }
     })
@@ -86,15 +86,17 @@ function scroll(e){
     layers.forEach((layer,i) => {
         const k = (layers.length-i-1)/(layers.length-1);
         layer.t.y = pct * maxOffsetY / clientToSVG.y * k;
-        layer.domEl.setAttribute('transform',`
-            translate(${layer.t.x})
-            translate(0 ${layer.t.y})
-            translate(0 ${vb.height})
-            translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
-            scale(${layer.t.s})
-            translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-vb.height})
-        `)
+        layer.domEl.forEach(el => {
+            el.setAttribute('transform',`
+                translate(${layer.t.x})
+                translate(0 ${layer.t.y})
+                translate(0 ${vb.height})
+                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+                scale(${layer.t.s})
+                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+                translate(0 ${-vb.height})
+            `)
+        });
     })
 
     // document.body.style.background = `rgb(${2.55*(100-pct) + 2*pct},${2.55*(100-pct) + 1*pct},${2.55*(100-pct) + .5*pct})`
@@ -111,24 +113,17 @@ function move(){
     const pct = sky.x/window.innerWidth*2 * 100;
     layers.forEach((layer,i) => {
         layer.t.x = pct * maxOffset * (i/(layers.length-1));
-        layer.domEl.setAttribute('transform',`
-            translate(${layer.t.x})
-            translate(0 ${layer.t.y})
-            translate(0 ${vb.yMin + vb.height})
-            translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
-            scale(${layer.t.s})
-            translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-(vb.yMin + vb.height)})
-        `)
-        // layer.domEl.style.transform = `
-        //     translateX(${layer.t.x}%)
-        //     translateY(${layer.t.y}%)
-        //     translateY(100%)
-        //     translateX(50%)
-        //     scale(${layer.t.s})
-        //     translateX(-50%)
-        //     translateY(-100%)
-        // `;
+        layer.domEl.forEach(el => { 
+            el.setAttribute('transform',`
+                translate(${layer.t.x})
+                translate(0 ${layer.t.y})
+                translate(0 ${vb.yMin + vb.height})
+                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+                scale(${layer.t.s})
+                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+                translate(0 ${-(vb.yMin + vb.height)})
+            `)
+        });
     })
 }
 
@@ -144,29 +139,20 @@ function zoom(){
             cancelAnimationFrame(z)
         }
 
-        layer.domEl.setAttribute('transform',`
-            translate(${layer.t.x})
-            translate(0 ${layer.t.y})
-            translate(0 ${vb.yMin + vb.height})
-            translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
-            scale(${layer.t.s})
-            translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-(vb.yMin + vb.height)})
-        `)
-
-        // layer.domEl.style.transform = `
-        //     translateX(${layer.t.x}%)
-        //     translateY(${layer.t.y}%)
-        //     translateY(100%)
-        //     translateX(50%)
-        //     scale(${layer.t.s})
-        //     translateX(-50%)
-        //     translateY(-100%)
-        // `
-    })
+        layer.domEl.forEach(
+            el => { 
+                el.setAttribute('transform',`
+                translate(${layer.t.x})
+                translate(0 ${layer.t.y})
+                translate(0 ${vb.yMin + vb.height})
+                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+                scale(${layer.t.s})
+                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+                translate(0 ${-(vb.yMin + vb.height)})
+            `)
+        });
+    });
     z = requestAnimationFrame(zoom);
-    // zoom.delay++;
-    // if (zoom.delay < 100) return; 
 
     layers.forEach((layer,i) => {
         const z = (i+2)/(layers.length+1)*40;
@@ -178,27 +164,18 @@ function zoom(){
             cancelAnimationFrame(z)
         }
 
-        //viewBox="30 0 480 150"
-        layer.domEl.setAttribute('transform',`
-            translate(${layer.t.x})
-            translate(0 ${layer.t.y})
-            translate(0 ${150})
-            translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
-            scale(${layer.t.s})
-            translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-            translate(0 ${-150}) 
-        `)
-
-
-        // layer.domEl.style.transform = `
-        //     translateX(${layer.t.x}%)
-        //     translateY(${layer.t.y}%)
-        //     translateY(100%)
-        //     translateX(50%)
-        //     scale(${layer.t.s})
-        //     translateX(-50%)
-        //     translateY(-100%)
-        // `
+        layer.domEl.forEach(
+            el => { 
+                el.setAttribute('transform',`
+                translate(${layer.t.x})
+                translate(0 ${layer.t.y})
+                translate(0 ${vb.yMin + vb.height})
+                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+                scale(${layer.t.s})
+                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+                translate(0 ${-(vb.yMin + vb.height)})
+            `)
+        });
     })
     vel += a;
     z2 -= vel;
