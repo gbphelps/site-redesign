@@ -8,7 +8,8 @@ let clientToSVG;
 const maxOffset = .1;
 const maxOffsetY = .2;
 const speed = .03; //less than 1;
-let midpoint;
+let clouds;
+let cloudSvg;
 
 //zoom
 const p = 200
@@ -29,10 +30,12 @@ function resize(){
         x: vb.width / box.width,
         y: vb.height / box.height
     }
-    midpoint.setAttribute('x1',window.innerWidth*clientToSVG.x/2 + vb.xMin);
-    midpoint.setAttribute('x2',window.innerWidth*clientToSVG.x/2 + vb.xMin);
-    midpoint.setAttribute('y1',0);
-    midpoint.setAttribute('y2',vb.height);
+
+    console.log(window.innerWidth/window.innerHeight)
+    cloudSvg.setAttribute(
+        'viewBox', 
+        ` 0 0 ${300 * window.innerWidth/window.innerHeight} 300
+    `);
 }
 
 function setup(){
@@ -40,11 +43,11 @@ function setup(){
     x = 0;
 
     window.addEventListener('resize', resize);
-    //NOTE turn these on for left-to-right parallax mouse tracking
     animation = requestAnimationFrame(move);
     domEl.addEventListener('mousemove',updateMouse);
 
     svg = document.getElementById('parallax');
+    cloudSvg = document.getElementById('clouds');
     svg.setAttribute('viewBox',`${vb.xMin} ${vb.yMin} ${vb.width} ${vb.height}`);
 
     const container = document.getElementById('svg-container');
@@ -57,14 +60,18 @@ function setup(){
         "width": "100%"
     });
 
-    midpoint = document.createElementNS('http://www.w3.org/2000/svg','line');
-    midpoint.setAttribute('stroke', 'red');
-    // svg.appendChild(midpoint);
     resize();
 
     sky = { domEl, x } //TODO requires update;
-    layers = [10,9,8,7,6,5,4,3,2,1].map(num => {
+    layers = [5,4,3,2,1].map(num => {
         const domEl = Array.from(document.getElementsByClassName(`layer-${num}`));
+        const t = {x: 0, y: 0, s: 1}
+        return { domEl, t }
+    })
+
+    clouds = [10,9,8,7,6].map(num => {
+        const domEl = Array.from(document.getElementsByClassName(`cloud-${num}`)); 
+        console.log(domEl) 
         const t = {x: 0, y: 0, s: 1}
         return { domEl, t }
     })
@@ -99,33 +106,74 @@ function scroll(e){
         });
     })
 
+    clouds.forEach((layer,i) => {
+        const k = (layers.length-i-1+1)/(layers.length-1);
+        layer.t.y = pct * maxOffsetY / clientToSVG.y * k;
+        layer.domEl.forEach(el => {
+            el.setAttribute('transform',`
+                translate(${layer.t.x})
+                translate(0 ${layer.t.y})
+                translate(0 ${vb.height})
+                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+                scale(${layer.t.s})
+                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+                translate(0 ${-vb.height})
+            `)
+        });
+    })
     // document.body.style.background = `rgb(${2.55*(100-pct) + 2*pct},${2.55*(100-pct) + 1*pct},${2.55*(100-pct) + .5*pct})`
 }
 
 
-///CURRENTLY DISABLED/////////
-
-//NOTE: PARALLAX MOUSE TRACKING
+let cloudPos = 0;
 function move(){
     animation = requestAnimationFrame(move);
-    const delta = x - sky.x;
-    sky.x += delta * speed;
-    const pct = sky.x/window.innerWidth*2 * 100;
-    layers.forEach((layer,i) => {
-        layer.t.x = pct * maxOffset * (i/(layers.length-1));
-        layer.domEl.forEach(el => { 
+    
+    //NOTE - MOUSE TRACKING
+    // const delta = x - sky.x;
+    // sky.x += delta * speed;
+    // const pct = sky.x/window.innerWidth*2 * 100;
+    // layers.slice(5).forEach((layer,i) => {
+    //     layer.t.x = pct * maxOffset * (i/(layers.length-1));
+    //     layer.domEl.forEach(el => { 
+    //         el.setAttribute('transform',`
+    //             translate(${layer.t.x})
+    //             translate(0 ${layer.t.y})
+    //             translate(0 ${vb.yMin + vb.height})
+    //             translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+    //             scale(${layer.t.s})
+    //             translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+    //             translate(0 ${-(vb.yMin + vb.height)})
+    //         `)
+    //     });
+    // })
+
+    clouds.forEach((layer,i) => {
+        const k = (i+1)/(layers.length-1);
+        layer.t.x -= k * .1;
+        if (layer.t.x <= -460) {
+            layer.t.x = 0; 
+        }
+        layer.domEl.forEach(el => {
             el.setAttribute('transform',`
                 translate(${layer.t.x})
                 translate(0 ${layer.t.y})
-                translate(0 ${vb.yMin + vb.height})
+                translate(0 ${vb.height})
                 translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
                 scale(${layer.t.s})
                 translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-                translate(0 ${-(vb.yMin + vb.height)})
+                translate(0 ${-vb.height})
             `)
         });
     })
 }
+
+
+
+
+
+
+
 
 /////////////////////
 function zoom(){
@@ -153,30 +201,6 @@ function zoom(){
         });
     });
     z = requestAnimationFrame(zoom);
-
-    layers.forEach((layer,i) => {
-        const z = (i+2)/(layers.length+1)*40;
-        const scaleInit = p/(p - z);
-        const scaleNew = (p-z2)/(p-z-z2);
-        layer.t.s = scaleNew / scaleInit;
-        if (layer.t.s < 1){
-            layer.t.s = 1;
-            cancelAnimationFrame(z)
-        }
-
-        layer.domEl.forEach(
-            el => { 
-                el.setAttribute('transform',`
-                translate(${layer.t.x})
-                translate(0 ${layer.t.y})
-                translate(0 ${vb.yMin + vb.height})
-                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
-                scale(${layer.t.s})
-                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-                translate(0 ${-(vb.yMin + vb.height)})
-            `)
-        });
-    })
     vel += a;
     z2 -= vel;
 }

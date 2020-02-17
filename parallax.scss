@@ -3,10 +3,6 @@ html,body{
     height: 0;
 }
 
-// #layer-3{
-//     position: relative;
-// }
-
 .content{
     height: 200vh;
     width: 100%;
@@ -17,24 +13,25 @@ html,body{
     background: $light-blue;
 }
 
-
-// [id*="layer-"]{
-//     // filter: url("#hello");
-//     fill: white;
-// }
-
 @for $i from 0 through 4 {
+    //city
     .layer-#{($i + 1)}{
-        fill: scale-color($color: $light-blue, $lightness: 100 - $i * 15%  );
+        fill: scale-color($color: $light-blue, $lightness: 100% - $i * 15%  );
+    }
+    //clouds
+    .cloud-#{($i + 6)}{
+        fill: scale-color($color: $light-blue, $lightness: 100% - ($i) * 15%  );
     }
 }
 
 #cloud-container {
     width: 100%;
-    align-self: flex-start;
+    height: 100%;
     display: flex;
     position: absolute;
+    align-self: flex-start;
     flex-shrink: 0;
+    z-index: 0;
     svg {
         flex-shrink: 0;
         width: 100%;
