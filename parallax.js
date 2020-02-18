@@ -4,12 +4,15 @@ let layers;
 let x = 0;
 let animation;
 let svg;
+let boat;
+let boatSvg;
 let clientToSVG;
 const maxOffset = .1;
 const maxOffsetY = .2;
 const speed = .03; //less than 1;
 let clouds;
 let cloudSvg;
+let boatTrack;
 
 //zoom
 const p = 200
@@ -36,18 +39,26 @@ function resize(){
         'viewBox', 
         ` 0 0 ${300 * window.innerWidth/window.innerHeight} 300
     `);
+
+    boatSvg.setAttribute('viewBox',`0 0 ${ 436.19 * window.innerWidth/window.innerHeight *2} 436.19`);
+    boatTrack = 436.19 * window.innerWidth/window.innerHeight * 2;
+    document.getElementById('b2').setAttribute('transform',`translate(-${boatTrack})`)
 }
 
 function setup(){
     const domEl = document.getElementById('skyline');
     x = 0;
 
-    window.addEventListener('resize', resize);
-    animation = requestAnimationFrame(move);
-    domEl.addEventListener('mousemove',updateMouse);
-
     svg = document.getElementById('parallax');
     cloudSvg = document.getElementById('clouds');
+    boatSvg = document.getElementById('boat');
+    boat = {
+        domEl: Array.from(document.getElementsByClassName('boat')),
+        t: {
+            x: 0,
+        }
+    }
+
     svg.setAttribute('viewBox',`${vb.xMin} ${vb.yMin} ${vb.width} ${vb.height}`);
 
     const container = document.getElementById('svg-container');
@@ -78,6 +89,9 @@ function setup(){
     
     document.addEventListener('scroll', scroll);
     zoom();
+    animation = requestAnimationFrame(move);
+    window.addEventListener('resize', resize);
+    domEl.addEventListener('mousemove',updateMouse);
 }
 
 function updateMouse(e){
@@ -148,6 +162,12 @@ function move(){
     //     });
     // })
 
+    boat.t.x += .1;
+    if (boat.t.x > boatTrack) boat.t.x = 0;
+    boat.domEl.forEach(el => {
+        el.setAttribute('transform',`translate(${boat.t.x})`)
+    })
+    
     clouds.forEach((layer,i) => {
         const k = (i+1)/(layers.length-1);
         layer.t.x -= k * .1;
