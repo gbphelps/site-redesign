@@ -38,12 +38,12 @@ nav{
         height: 30px;
         width: auto;
         margin-right: 20px;
-        fill: $light-blue-shadow;
+        fill: scale-color($light-blue, $lightness: -35%);
         animation-name: bounce-in;
         animation-duration: .8s;
         animation-fill-mode: both;
         &:hover { 
-            fill: white;
+            fill: $navy;
             // transform: scale(1.15);
         }
     }

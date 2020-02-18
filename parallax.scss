@@ -20,7 +20,7 @@ html,body{
     }
     //clouds
     .cloud-#{($i + 6)}{
-        fill: scale-color($color: $light-blue, $lightness: 100% - ($i) * 15%  );
+        fill: scale-color($color: $light-blue, $lightness: 85% - ($i) * 15%  );
     }
 }
 
