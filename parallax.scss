@@ -16,7 +16,7 @@ html,body{
 @for $i from 0 through 4 {
     //city
     .layer-#{($i + 1)}{
-        fill: scale-color($color: $light-blue, $lightness: 100% - $i * 15%  );
+        fill: scale-color($color: $light-blue, $lightness: 40% - $i * 18% );
     }
     //clouds
     .cloud-#{($i + 6)}{
@@ -41,3 +41,16 @@ html,body{
 }
 
 
+.sail{
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    align-self: flex-end;
+    bottom: -4px;
+    z-index: 4;
+    svg {
+        height: 100%;
+        width: auto;
+        fill: white;
+    }
+}
