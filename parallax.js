@@ -40,10 +40,12 @@ function resize(){
         ` 0 0 ${300 * window.innerWidth/window.innerHeight} 300
     `);
 
-    boatSvg.setAttribute('viewBox',`0 0 ${ 436.19 * window.innerWidth/window.innerHeight *2} 436.19`);
     boatTrack = 436.19 * window.innerWidth/window.innerHeight * 2;
+    boatSvg.setAttribute('viewBox',`0 0 ${boatTrack} 436.19`);
+   
     boatSize = document.getElementById('bpath').getBBox().width;
-    document.getElementById('b2').setAttribute('transform',`translate(-${boatTrack+boatSize})`)
+    document.getElementById('b2').setAttribute('transform',`translate(-${boatTrack+boatSize*2})`)
+    document.getElementById('b1').setAttribute('transform', `translate(-${boatSize})`)
 }
 
 function setup(){
@@ -163,8 +165,8 @@ function move(){
     //     });
     // })
 
-    boat.t.x += .1;
-    if (boat.t.x > boatTrack+boatSize) boat.t.x = 0;
+    boat.t.x += .15;
+    if (boat.t.x > boatTrack + boatSize) boat.t.x = 0;
     boat.domEl.forEach(el => {
         el.setAttribute('transform',`translate(${boat.t.x})`)
     })
