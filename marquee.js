@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', setup);
+// document.addEventListener('DOMContentLoaded', setup);
 
 function setup(){
     const items = Array.from(document.getElementsByClassName('item'));

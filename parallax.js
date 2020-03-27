@@ -71,7 +71,8 @@ function setup(){
         "align-self": "flex-end",
         "z-index": 1,
         "position": "relative",
-        "width": "100%"
+        "width": "100vw",
+        overflow: 'hidden'
     });
 
     resize();
