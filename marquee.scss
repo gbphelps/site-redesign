@@ -8,6 +8,7 @@ $stroke: scale-color($light-blue, $lightness: -35%);
         align-items: center;
         position: relative;
         z-index: 1;
+        padding: 18px;
     }
     
     * {
@@ -23,7 +24,7 @@ $stroke: scale-color($light-blue, $lightness: -35%);
         align-items: center;
         justify-content: center;
         width: 250px;
-        margin-left: 40px;
+
     }
     
     .item{
@@ -53,7 +54,6 @@ $stroke: scale-color($light-blue, $lightness: -35%);
         transform: translateZ(-$offset);
         transform-style: preserve-3d;
         height: 100%;
-        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -80,6 +80,7 @@ $stroke: scale-color($light-blue, $lightness: -35%);
     .static{
         font-size: 24px;
         font-weight: 800;
+        flex-grow: 1;
     }
 
     @media only screen and (max-width: 500px) {
