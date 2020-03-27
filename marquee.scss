@@ -43,6 +43,7 @@ $stroke: scale-color($light-blue, $lightness: -35%);
         font-weight: 900;
     }
     
+    
     .animate{
         visibility: visible;
         animation-name: animate;
@@ -79,6 +80,16 @@ $stroke: scale-color($light-blue, $lightness: -35%);
     .static{
         font-size: 24px;
         font-weight: 800;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .item {
+            font-size: 36px;
+        }  
+
+        .static {
+            font-size: 20px;
+        }
     }
     
     *{
