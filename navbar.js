@@ -14,7 +14,7 @@ window.addEventListener('scroll', () => {
        navbar.classList.remove('detached');
     }
 
-    scrolledUp = window.scrollY <= y;
+    scrolledUp = window.scrollY <= y || window.scrollY === 0;
     y = window.scrollY;
 
     if (scrolledUp){
