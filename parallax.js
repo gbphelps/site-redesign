@@ -67,7 +67,7 @@ function setup(){
     const container = document.getElementById('svg-container');
     Object.assign(container.style,{
         "height": "130%",
-        "min-height": `calc(100vw / ${vb.width - 50} * ${vb.height})`,
+        "min-height": `${100 / (vb.width - 50) * vb.height}vw`,
         "align-self": "flex-end",
         "z-index": 1,
         "position": "relative",
