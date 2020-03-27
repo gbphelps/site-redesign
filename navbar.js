@@ -1,5 +1,5 @@
 
-let scrolledUp = true, navbar, s;
+let scrolledUp = true, y, navbar, s;
 document.addEventListener('DOMContentLoaded',()=>{ 
     navbar = document.getElementsByTagName('nav')[0];
     s = document.getElementById('skyline');
@@ -15,7 +15,10 @@ window.addEventListener('wheel', (e) => {
        navbar.classList.remove('detached');
     }
 
-    if (e.deltaY <= 0 || window.scrollY <= 0){
+    scrolledUp = window.scrollY <= y;
+    y = window.scrollY;
+
+    if (scrolledUp || window.scrollY <= 0){
         navbar.classList.remove('retracted')
     } else {
         navbar.classList.add('retracted')
