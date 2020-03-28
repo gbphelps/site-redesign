@@ -87,7 +87,6 @@ function setup(){
 
     clouds = [10,9,8,7,6].map(num => {
         const domEl = Array.from(document.getElementsByClassName(`cloud-${num}`)); 
-        console.log(domEl) 
         const t = {x: 0, y: 0, s: 1}
         return { domEl, t }
     })
