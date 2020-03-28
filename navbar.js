@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     s = document.getElementById('skyline');
 })
 
-window.addEventListener('wheel', (e) => {
+window.addEventListener('scroll', (e) => {
     console.log(e)
     const bottom = s.getBoundingClientRect().bottom;
 
