@@ -8,6 +8,14 @@ $light-gray: #d5d7e2;
 	box-sizing: border-box;
 }
 
+
+
+html, body {
+	height: 100%; 
+	padding: 0;
+	margin: 0;
+}
+
 body{
 	background: white;
 }
