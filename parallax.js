@@ -34,13 +34,14 @@ function resize(){
         y: vb.height / box.height
     }
 
-    console.log(window.innerWidth/window.innerHeight)
+    const {width: vw, height: vh} = document.body.getBoundingClientRect();
+
     cloudSvg.setAttribute(
         'viewBox', 
-        ` 0 0 ${300 * window.innerWidth/window.innerHeight} 300
+        ` 0 0 ${300 * vw/vh} 300
     `);
 
-    boatTrack = 436.19 * window.innerWidth/window.innerHeight * 2;
+    boatTrack = 436.19 * vw/vh * 2;
     boatSvg.setAttribute('viewBox',`0 0 ${boatTrack} 436.19`);
    
     boatSize = document.getElementById('bpath').getBBox().width;
@@ -72,7 +73,7 @@ function setup(){
         "z-index": 1,
         "position": "relative",
         "width": "100vw",
-        overflow: 'hidden'
+        overflow: 'hidden',
     });
 
     resize();
