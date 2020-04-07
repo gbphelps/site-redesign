@@ -10,8 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const features = Array.from(document.getElementsByClassName('feature'));
     features.forEach(f => {
        f.addEventListener('click',()=>{
-           features.forEach(f => f.classList.remove('active'));
+           features.forEach(f => {
+               f.classList.remove('active');
+               f.getElementsByTagName('video')[0].pause();
+            });
            f.classList.toggle('active');
+           f.getElementsByTagName('video')[0].play();
        })
     })
 })
