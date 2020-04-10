@@ -8,7 +8,7 @@ let boat;
 let boatSvg;
 let clientToSVG;
 const maxOffset = .1;
-const maxOffsetY = .2;
+const maxOffsetY = .125;
 const speed = .03; //less than 1;
 let clouds;
 let cloudSvg;
