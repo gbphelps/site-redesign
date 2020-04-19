@@ -91,10 +91,11 @@ body{
 		transform: translateY(-5%);
 	}
 	75% {
-		transform: translateY(100%);
+		transform: translateY(30%);
 	}
 	100% {
-		transform: translateY(100%);
+		transform: translateY(30%);
+		opacity: 0;
 		visibility: hidden;
 	}
 }
@@ -107,8 +108,11 @@ body{
 	color: scale-color($light-blue, $lightness: -35%);
 }
 
-video {
-	width: 400px;
+.video-container {
+	width: 100%;
+	video {
+		width: 100%;
+	}
 }
 
 @import "./parallax";

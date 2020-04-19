@@ -1,6 +1,9 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//     Array.from(document.getElementsByTagName('video')).forEach(vid => {
-//         vid.addEventListener('mouseenter', () => vid.play());
-//         vid.addEventListener('mouseleave', () => vid.pause());
-//     })
-// })
+document.addEventListener('DOMContentLoaded', () => {
+    const videos = Array.from(document.getElementsByTagName('video'));
+    videos.forEach(vid => {
+        vid.addEventListener('click', () => {
+            videos.forEach(vid => vid.pause());
+            vid.play()
+        });
+    })
+})

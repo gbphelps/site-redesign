@@ -36,9 +36,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     })
 
     promises = promises.concat(Array.from(document.getElementsByTagName('video')).map(el => new Promise(r => {
-        el.addEventListener('click',()=>{
-            el.play();
-        })
         el.addEventListener('canplaythrough',r);
         el.addEventListener('progress', (e)=>{
             console.log(e)
