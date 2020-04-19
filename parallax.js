@@ -200,6 +200,7 @@ function move(){
 
 
 /////////////////////
+let zz = null;
 function zoom(){
     layers.forEach((layer,i) => {
         const z = (i+2)/(layers.length+1)*40;
@@ -208,7 +209,7 @@ function zoom(){
         layer.t.s = scaleNew / scaleInit;
         if (layer.t.s < 1){
             layer.t.s = 1;
-            cancelAnimationFrame(z)
+            cancelAnimationFrame(zz)
         }
 
         layer.domEl.forEach(
@@ -224,7 +225,7 @@ function zoom(){
             `)
         });
     });
-    z = requestAnimationFrame(zoom);
+    zz = requestAnimationFrame(zoom);
     vel += a;
     z2 -= vel;
 }
