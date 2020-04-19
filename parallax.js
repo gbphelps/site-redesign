@@ -209,7 +209,7 @@ function zoom(){
         layer.t.s = scaleNew / scaleInit;
         if (layer.t.s < 1){
             layer.t.s = 1;
-            cancelAnimationFrame(zz)
+            return;
         }
 
         layer.domEl.forEach(
@@ -229,5 +229,3 @@ function zoom(){
     vel += a;
     z2 -= vel;
 }
-zoom.delay = 0;
-zoom.progress = 0;
