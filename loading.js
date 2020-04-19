@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     
 
     Promise.all(promises).then(() => {
+        document.body.classList.remove('load-clip');
         document.getElementById('content').classList.remove('hidden');
         Array.from(document.getElementsByClassName('zoom')).forEach(el => {
             el.classList.add('zoom-out');
