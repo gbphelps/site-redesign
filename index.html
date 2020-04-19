@@ -6,6 +6,7 @@
         <script src="./marquee.js"></script>
         <script src="./navbar.js"></script>
         <script src="./video.js"></script>
+        <script src="./loading.js"></script>
         <meta name="viewport" content="width=device-width">
         <meta name="viewport" content="initial-scale=1.0">
     </head>
@@ -199,16 +200,15 @@
             </svg>
         </div>
 
-        </div>
+        <div id="loading" style="display: flex; height: 100%; font-size: 80px; font-weight: 600; position: absolute; margin: auto;">Loading...</div>
 
-        
-     
-        <!-- <div style="height: 100%; width: 100%; background: #223; flex-shrink: 0">hello</div> -->
-
-        <div class="content" style="position: relative; z-index: 1; padding-top: 24px;">   
-            <div class="full-width">Please check back shortly for featured projects</div>
         </div>
     
+
+        <div id="content" class="hidden">
+            <div><img src="https://gbp-website.s3.amazonaws.com/astral.png"></div>
+            <div><img src="https://gbp-website.s3.amazonaws.com/market+quality.png"></div>
+        </div>
 
     </body>
 </html>
