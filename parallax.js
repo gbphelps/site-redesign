@@ -201,7 +201,7 @@ function move(){
 
 /////////////////////
 let zz = null;
-function zoom(){
+function zoom(){   
     layers.forEach((layer,i) => {
         const z = (i+2)/(layers.length+1)*40;
         const scaleInit = p/(p - z); //this is the scale that will eventually be reached, when z2 = 0.
@@ -225,7 +225,8 @@ function zoom(){
             `)
         });
     });
-    zz = requestAnimationFrame(zoom);
     vel += a;
     z2 -= vel;
+
+    zz = requestAnimationFrame(zoom); 
 }
