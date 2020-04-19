@@ -49,8 +49,10 @@ nav{
     }
 
     @for $i from 1 through 6 {
-        svg:nth-child(#{$i}){
-            animation-delay: #{($i - 1)*.08}s;
+        a:nth-child(#{$i}){
+            svg {
+                animation-delay: #{($i - 1)*.08}s;
+            }
         }
     }
 
