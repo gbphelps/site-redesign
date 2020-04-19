@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded',()=>{
         loading.appendChild(div);
         div.classList.add('zoom');
         Object.assign(div.style, {
-            animationDelay: `${-.1*i}s`,
+            animationDelay: `${.1*i}s`,
             display: 'flex',
-            alignItems: 'center'    
+            alignItems: 'center',
+            padding: '4px', 
+            animationFillMode: 'both', 
         })
 
         div.appendChild(span);
@@ -23,14 +25,36 @@ document.addEventListener('DOMContentLoaded',()=>{
         })
     }
 
-    const promises = Array.from(document.getElementsByTagName('img')).map((el) => {
+    let promises = Array.from(document.getElementsByTagName('img')).map((el) => {
         return new Promise(r => {
             el.addEventListener('load',r);
             el.addEventListener('error',r);
+            el.addEventListener('progress',() => {
+                console.log('hello')
+            })
         })
     })
+
+    promises = promises.concat(Array.from(document.getElementsByTagName('video')).map(el => new Promise(r => {
+        el.addEventListener('click',()=>{
+            el.play();
+        })
+        el.addEventListener('canplaythrough',r);
+        el.addEventListener('progress', (e)=>{
+            console.log(e)
+        })
+        el.addEventListener('error', r);
+    })))
+
+    promises.push(new Promise(r => setTimeout(r, 5000)));
+    
+
     Promise.all(promises).then(() => {
-        document.getElementById('content').classList.remove('hidden')
+        document.getElementById('content').classList.remove('hidden');
+        Array.from(document.getElementsByClassName('zoom')).forEach(el => {
+            el.classList.add('zoom-out');
+        })
+        
     })
     
 })
