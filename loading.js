@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     promises = promises.concat(Array.from(document.getElementsByTagName('video')).map(el => new Promise(r => {
         el.addEventListener('canplaythrough',r);
         el.addEventListener('error', r);
+        setTimeout(r, 7000);
     })))
 
     promises.push(new Promise(r => setTimeout(r, 5000)));
