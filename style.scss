@@ -122,6 +122,30 @@ body{
 	height: 100vh; width: 100vw; overflow: hidden;
 }
 
+.feature-link {
+	padding: 12px;
+	border-radius: 200px;
+	display: flex;
+	align-items: center;
+}
+
+.pip {
+	height: 36px; 
+	background: #ccc; 
+	border-radius: 50%; 
+	width: 36px; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	color: white;
+
+	svg {
+		height: 20px;
+		fill: white;
+	}
+}
+
 @import "./parallax";
 @import "./marquee";
 @import "./navbar";
