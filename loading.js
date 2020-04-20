@@ -29,17 +29,11 @@ document.addEventListener('DOMContentLoaded',()=>{
         return new Promise(r => {
             el.addEventListener('load',r);
             el.addEventListener('error',r);
-            el.addEventListener('progress',() => {
-                console.log('hello')
-            })
         })
     })
 
     promises = promises.concat(Array.from(document.getElementsByTagName('video')).map(el => new Promise(r => {
         el.addEventListener('canplaythrough',r);
-        el.addEventListener('progress', (e)=>{
-            console.log(e)
-        })
         el.addEventListener('error', r);
     })))
 
