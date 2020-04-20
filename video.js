@@ -5,5 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
             videos.forEach(vid => vid.pause());
             vid.play()
         });
+       
     })
 })
