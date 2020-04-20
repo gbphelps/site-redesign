@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 })
 
 window.addEventListener('scroll', (e) => {
+    console.log(e);
+    
     const bottom = s.getBoundingClientRect().bottom;
 
     if (bottom < 0) {
