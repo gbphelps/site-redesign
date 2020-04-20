@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded',()=>{
             animationDelay: `${.1*i}s`,
             display: 'flex',
             alignItems: 'center',
-            padding: '4px', 
             animationFillMode: 'both', 
         })
 
