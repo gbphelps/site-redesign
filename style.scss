@@ -213,3 +213,27 @@ body{
 a {
 	text-decoration: none;
 }
+
+
+@media only screen and (max-width: 800px){
+	.actions {
+		width: 100%;
+		.links {
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.feature-link {
+			display: inline-flex;
+			width: unset;
+			margin: 4px;
+		}
+	}
+
+	.feature {
+		display: block;
+		.video-container {
+			width: 100%;
+		}
+	}
+}
