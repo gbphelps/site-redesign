@@ -16,7 +16,7 @@ let boatTrack;
 
 //zoom
 const p = 200
-let z2=150;
+let z2 = 150;
 const a = .01;
 let vel = 0;
 
@@ -92,7 +92,7 @@ function setup(){
     })
     
     document.addEventListener('scroll', scroll);
-    zoom();
+    // zoom();
     animation = requestAnimationFrame(move);
     window.addEventListener('resize', resize);
     domEl.addEventListener('mousemove',updateMouse);
@@ -151,8 +151,11 @@ function move(){
     // const delta = x - sky.x;
     // sky.x += delta * speed;
     // const pct = sky.x/window.innerWidth*2 * 100;
-    // layers.slice(5).forEach((layer,i) => {
+
+    // layers.forEach((layer,i) => {
+    //     console.log(layer)
     //     layer.t.x = pct * maxOffset * (i/(layers.length-1));
+    //     if (i === 1) console.log(layer.t.x)
     //     layer.domEl.forEach(el => { 
     //         el.setAttribute('transform',`
     //             translate(${layer.t.x})
@@ -200,33 +203,33 @@ function move(){
 
 
 /////////////////////
-let zz = null;
-function zoom(){   
-    layers.forEach((layer,i) => {
-        const z = (i+2)/(layers.length+1)*40;
-        const scaleInit = p/(p - z); //this is the scale that will eventually be reached, when z2 = 0.
-        const scaleNew = (p-z2)/(p-z2-z); // this is the current scale, based the time-dependent distance z2.
-        layer.t.s = scaleNew / scaleInit;
-        if (layer.t.s < 1){
-            layer.t.s = 1;
-            return;
-        }
+// let zz = null;
+// function zoom(){   
+//     layers.forEach((layer,i) => {
+//         const z = (i+2)/(layers.length+1)*40;
+//         const scaleInit = p/(p - z); //this is the scale that will eventually be reached, when z2 = 0.
+//         const scaleNew = (p-z2)/(p-z2-z); // this is the current scale, based the time-dependent distance z2.
+//         layer.t.s = scaleNew / scaleInit;
+//         if (layer.t.s < 1){
+//             layer.t.s = 1;
+//             return;
+//         }
 
-        layer.domEl.forEach(
-            el => { 
-                el.setAttribute('transform',`
-                translate(${layer.t.x})
-                translate(0 ${layer.t.y})
-                translate(0 ${vb.yMin + vb.height})
-                translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
-                scale(${layer.t.s})
-                translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
-                translate(0 ${-(vb.yMin + vb.height)})
-            `)
-        });
-    });
-    vel += a;
-    z2 -= vel;
+//         layer.domEl.forEach(
+//             el => { 
+//                 el.setAttribute('transform',`
+//                 translate(${layer.t.x})
+//                 translate(0 ${layer.t.y})
+//                 translate(0 ${vb.yMin + vb.height})
+//                 translate(${window.innerWidth*clientToSVG.x/2 + vb.xMin})
+//                 scale(${layer.t.s})
+//                 translate(${-window.innerWidth*clientToSVG.x/2 - vb.xMin})
+//                 translate(0 ${-(vb.yMin + vb.height)})
+//             `)
+//         });
+//     });
+//     vel += a;
+//     z2 -= vel;
 
-    zz = requestAnimationFrame(zoom); 
-}
+//     zz = requestAnimationFrame(zoom); 
+// }

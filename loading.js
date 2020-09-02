@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         span.classList.add('float');
 
         Object.assign(span.style, {
-            animationDelay: `${-.2*i}s`    
+            animationDelay: `${.5+.2*i}s`    
         })
     }
 

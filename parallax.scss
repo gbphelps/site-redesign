@@ -7,7 +7,7 @@
 
 #skyline{
     overflow: hidden;
-    background: $light-blue;
+    background: radial-gradient(at bottom, lighten($light-blue, 10%), $light-blue);
     width: 100%; 
     overflow: hidden; 
     height: 100%; 
@@ -19,11 +19,12 @@
 @for $i from 0 through 4 {
     //city
     .layer-#{($i + 1)}{
-        fill: scale-color($color: $light-blue, $lightness: 40% - $i * 18% );
+        $color: scale-color($color: $light-blue, $lightness: 40% - $i * 18% );
+        fill: $color;
     }
     //clouds
     .cloud-#{($i + 6)}{
-        fill: scale-color($color: $light-blue, $lightness: 85% - ($i) * 15%  );
+        fill: url(#cloud-gradient);
     }
 }
 

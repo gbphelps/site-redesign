@@ -32,7 +32,7 @@ body{
 .float {
 	animation-name: f;
 	animation-duration: 1s;
-
+	animation-fill-mode: both;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
 	position: relative;
@@ -41,12 +41,11 @@ body{
 }
 
 .zoom {
-	animation-name: z;
-	animation-duration: 1s;
-
 	position: relative;
 	display: inline-block;
-	animation-timing-function: ease-in-out;
+	animation-name: appear;
+	animation-duration: .5s;
+	z-index: 1;
 }
 
 .zoom-out {
@@ -57,45 +56,46 @@ body{
 	display: inline-block;
 	animation-timing-function: ease-in-out;
 	animation-fill-mode: both;
+	z-index: 0;
 }
 
 @keyframes f {
 	0% {
-		transform: translateY(-5%)rotate(-2deg);
+		transform: translateY(15%)rotate(2deg);
 	} 
 	100% {
-		transform: translateY(5%)rotate(2deg);
+		transform: translateY(-15%)rotate(-2deg);
 	}
 }
 
 
-@keyframes z {
+@keyframes appear {
 	0% {
+		transform: translateY(-30%);
 		opacity: 0;
-		transform: translateY(-20%);
 	} 
-	50% {
-		transform: translateY(5%);
-	}
-	75% {
-		transform: translateY(-1%);
+	100% {
+		transform: translateY(0%);
+		opacity: 1;
 	}
 }
 
 @keyframes nz {
 	0% {
+		z-index: 0;
 		transform: translateY(1%);
 	} 
-	50% {
+	33% {
 		transform: translateY(-5%);
 	}
-	75% {
-		transform: translateY(30%);
+	67% {
+		transform: translateY(40%);
 	}
 	100% {
-		transform: translateY(30%);
+		transform: translateY(40%);
 		opacity: 0;
 		visibility: hidden;
+		z-index: 0;
 	}
 }
 
@@ -133,6 +133,7 @@ body{
 }
 
 .feature-link {
+	background: white;
 	padding: 12px;
 	margin-bottom: 8px;
 	border-radius: 200px;
@@ -199,10 +200,9 @@ body{
 
 
 @import "./parallax";
-@import "./marquee";
 @import "./navbar";
 @import "./carousel";
-// @import "./feature";
+
 
 
 
